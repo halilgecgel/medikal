@@ -1,23 +1,57 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+  <script>
+  try {
+    var saved = localStorage.getItem("oximed-theme");
+    var dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    var m = document.createElement("meta");
+    m.name = "theme-color";
+    m.dataset.themeLive = "1";
+    m.content = dark ? "#070d18" : "#f4f7fb";
+    document.head.appendChild(m);
+    if (!saved) matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+      if (localStorage.getItem("oximed-theme")) return;
+      document.documentElement.dataset.theme = e.matches ? "dark" : "light";
+      m.content = e.matches ? "#070d18" : "#f4f7fb";
+      document.dispatchEvent(new Event("themechange"));
+    });
+  } catch (e) {}
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>OXIMED Tıbbi Cihazlar | Uyku, Oksijen ve Solunum</title>
   <meta name="description" content="Gaziantep OXIMED: CPAP, BPAP, oksijen konsantratörü, nebülizatör, sarf malzemesi ve teknik servis.">
+  <meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#070d18" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="assets/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,560;1,9..144,560&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+  </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="home">
+  <div id="loader" role="status" aria-label="Yükleniyor">
+    <div class="loader-core">
+      <div class="loader-spin"></div>
+      <span class="loader-mark"></span>
+      <strong>OXIMED</strong>
+      <em>TIBBİ CİHAZLAR</em>
+      <div class="loader-track"><i></i></div>
+    </div>
+  </div>
   <div id="site-header"></div>
   <main>
     <section class="hero">
-      <div class="wrap hero-grid">
+      <canvas id="stage" data-mode="hero"></canvas>
+      <div class="hero-grid">
         <div class="reveal">
           <span class="kicker">PROFESYONEL MEDİKAL DESTEK</span>
-          <h1>Sağlığınız için <em>güvenilir</em> cihaz çözümleri.</h1>
+          <h1>Sağlığınız için <span>güvenilir</span> cihaz çözümleri.</h1>
           <p class="lead">Uyku terapisi, oksijen tedavisi ve solunum ürünlerinde danışmanlık, kurulum ve teknik servis. Şehitkamil / Gaziantep.</p>
           <div class="actions">
             <a class="btn solid" href="urunler.html">Ürünleri incele</a>
@@ -25,11 +59,31 @@
           </div>
         </div>
         <div class="hero-visual reveal">
-          <img src="assets/hero-clinic.jpg" alt="Klinik ortamda uyku ve oksijen cihazları">
-          <div class="float-card"><strong>Uyku ve solunum</strong><span>CPAP, BPAP, oksijen ve nebülizatör</span></div>
+          <div class="glass-panel">
+            <span>CİHAZ GRUPLARI</span>
+            <ul>
+              <li><b>CPAP · BPAP</b><small>Uyku</small></li>
+              <li><b>Oksijen</b><small>Ev ve klinik</small></li>
+              <li><b>Nebülizatör</b><small>Solunum</small></li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
+
+    <ul class="metrics">
+      <li class="reveal"><b>CPAP</b><span>Uyku cihazları ve maske</span></li>
+      <li class="reveal"><b>O₂</b><span>Oksijen konsantratörü</span></li>
+      <li class="reveal"><b>Servis</b><span>Bakım ve arıza kaydı</span></li>
+      <li class="reveal"><b>Gaziantep</b><span>Şehitkamil merkez</span></li>
+    </ul>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>RESMED</span><span>LÖWENSTEIN</span><span>BMC</span><span>CPAP</span><span>BPAP</span><span>OKSİJEN</span><span>NEBÜLİZATÖR</span><span>TEKNİK SERVİS</span>
+        <span>RESMED</span><span>LÖWENSTEIN</span><span>BMC</span><span>CPAP</span><span>BPAP</span><span>OKSİJEN</span><span>NEBÜLİZATÖR</span><span>TEKNİK SERVİS</span>
+      </div>
+    </div>
 
     <section class="section">
       <div class="wrap">
@@ -60,7 +114,7 @@
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
+    <section class="section tight">
       <div class="wrap split">
         <img class="reveal" src="assets/consultation.jpg" alt="Ürün danışmanlığı görüşmesi">
         <div class="reveal">
@@ -76,7 +130,7 @@
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
+    <section class="section tight">
       <div class="wrap">
         <div class="band reveal">
           <div>
@@ -90,5 +144,6 @@
   </main>
   <div id="site-footer"></div>
   <script src="js/main.js"></script>
+  <script type="module" src="js/scene.js"></script>
 </body>
 </html>

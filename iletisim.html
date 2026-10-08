@@ -1,15 +1,49 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+  <script>
+  try {
+    var saved = localStorage.getItem("oximed-theme");
+    var dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    var m = document.createElement("meta");
+    m.name = "theme-color";
+    m.dataset.themeLive = "1";
+    m.content = dark ? "#070d18" : "#f4f7fb";
+    document.head.appendChild(m);
+    if (!saved) matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+      if (localStorage.getItem("oximed-theme")) return;
+      document.documentElement.dataset.theme = e.matches ? "dark" : "light";
+      m.content = e.matches ? "#070d18" : "#f4f7fb";
+      document.dispatchEvent(new Event("themechange"));
+    });
+  } catch (e) {}
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>İletişim | OXIMED Tıbbi Cihazlar</title>
   <meta name="description" content="OXIMED Gaziantep telefon, WhatsApp ve adres bilgileri.">
   <link rel="icon" href="assets/logo.jpg">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,560;1,9..144,560&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#070d18" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+  </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="iletisim">
+  <div id="loader" role="status" aria-label="Yükleniyor">
+    <div class="loader-core">
+      <div class="loader-spin"></div>
+      <span class="loader-mark"></span>
+      <strong>OXIMED</strong>
+      <em>TIBBİ CİHAZLAR</em>
+      <div class="loader-track"><i></i></div>
+    </div>
+  </div>
   <div id="site-header"></div>
   <main class="wrap">
     <header class="page-hero reveal">
@@ -42,5 +76,6 @@
   </main>
   <div id="site-footer"></div>
   <script src="js/main.js"></script>
+  <script type="module" src="js/scene.js"></script>
 </body>
 </html>
