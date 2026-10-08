@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teknik Servis | OXIMED Tıbbi Cihazlar</title>
+  <meta name="description" content="CPAP, BPAP ve oksijen cihazları için WhatsApp servis kaydı.">
+  <link rel="icon" href="assets/logo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,560;1,9..144,560&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="servis">
+  <div id="site-header"></div>
+  <main class="wrap">
+    <header class="page-hero reveal">
+      <span class="kicker">TEKNİK SERVİS</span>
+      <h1>Servis kaydınızı oluşturun</h1>
+      <p class="sub">Form WhatsApp üzerinden hazır servis mesajına dönüşür.</p>
+    </header>
+    <div class="layout">
+      <aside class="panel reveal">
+        <img src="assets/technician.jpg" alt="Servis tezgahında cihaz kontrolü" style="height:220px;width:100%;object-fit:cover;border-radius:16px;margin-bottom:16px">
+        <h3>Cihaz bilgilerini gönderin</h3>
+        <ul class="check">
+          <li>Müşteri ve iletişim bilgileri</li>
+          <li>Cihaz türü, marka ve model</li>
+          <li>Seri numarası ve garanti durumu</li>
+          <li>Teknik servis notu</li>
+        </ul>
+      </aside>
+      <form class="form reveal" id="serviceForm">
+        <div class="grid2">
+          <div class="field"><label for="name">Ad Soyad / Firma</label><input id="name" required autocomplete="name"></div>
+          <div class="field"><label for="phone">Telefon</label><input id="phone" required autocomplete="tel"></div>
+          <div class="field"><label for="type">Cihaz Türü</label>
+            <select id="type"><option>CPAP</option><option>BPAP</option><option>Oksijen Konsantratörü</option><option>Nebülizatör</option><option>Diğer</option></select>
+          </div>
+          <div class="field"><label for="brand">Marka</label><input id="brand"></div>
+          <div class="field"><label for="model">Model</label><input id="model"></div>
+          <div class="field"><label for="serial">Seri No</label><input id="serial"></div>
+          <div class="field"><label for="warranty">Garanti Durumu</label>
+            <select id="warranty"><option>Belirtilmedi</option><option>Garanti Dahili</option><option>Garanti Dışı</option></select>
+          </div>
+          <div class="field"><label for="date">Randevu Tarihi</label><input id="date" type="date"></div>
+          <div class="field full"><label for="note">Teknik Servis Notu</label><textarea id="note" required placeholder="Arıza veya talebinizi yazın..."></textarea></div>
+        </div>
+        <p class="note" id="formNote"></p>
+        <button class="btn wide" type="submit">WhatsApp ile servis talebi gönder</button>
+      </form>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>
